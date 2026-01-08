@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>FELIZ DIA!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        /* ===== VÍDEOS FULLSCREEN ===== */
+        .bg-video {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        /* Controle por breakpoint */
+        .mobile {
+            display: block;
+        }
+
+        .desktop {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .mobile {
+                display: none;
+            }
+
+            .desktop {
+                display: block;
+            }
+        }
+
+        /* ===== CONTAINER DOS BOTÕES ===== */
+        .botoes-container {
+            position: fixed;
+            bottom: 6vh;
+            left: 50%;
+            transform: translateX(-50%);
+
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            align-items: center;
+
+            width: 92%;
+            max-width: 720px;
+            z-index: 10;
+        }
+
+        /* ===== BOTÕES (PADRÃO ORIGINAL) ===== */
+        .botao {
+            flex: 1;
+            padding: 16px 0;
+
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+
+            cursor: pointer;
+            color: white;
+
+            background: rgba(0, 0, 0, 0.7);
+
+            box-shadow:
+                0 6px 16px rgba(0, 0, 0, 0.5);
+
+            transition:
+                background 0.2s ease,
+                transform 0.15s ease,
+                box-shadow 0.15s ease,
+                border-color 0.15s ease;
+        }
+
+        /* ===== HOVER (DESKTOP) ===== */
+        @media (hover: hover) {
+            .botao:hover {
+                background: rgba(4, 85, 94, 0.85);
+                border-color: rgba(255, 255, 255, 0.35);
+
+                box-shadow:
+                    0 10px 24px rgba(0, 0, 0, 0.7);
+            }
+        }
+
+        /* ===== CLIQUE ===== */
+        .botao:active {
+            transform: scale(0.96);
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        /* ===== MOBILE ===== */
+        @media (max-width: 600px) {
+            .botao {
+                font-size: 0.95rem;
+                padding: 14px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- FUNDO MOBILE -->
+    <video autoplay muted loop playsinline class="bg-video mobile">
+        <source src="./Midia/KleeWalking.mp4" type="video/mp4">
+    </video>
+
+    <!-- FUNDO DESKTOP -->
+    <video autoplay muted loop class="bg-video desktop">
+        <source src="./Midia/klee-walking_desktop.mp4" type="video/mp4">
+    </video>
+
+    <!-- BOTÕES -->
+    <div class="botoes-container">
+
+        <button class="botao principal" onclick="window.location.href='./html/home.html'">Wishes</button>
+        <button class="botao" onclick="window.location.href='./html/galeria.html'">Momentos</button>
+        <button class="botao" onclick="window.location.href='./html/quest.html'">Quests</button>
+    </div>
+
+</body>
+
+</html>
