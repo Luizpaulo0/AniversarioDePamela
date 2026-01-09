@@ -4,13 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wishes</title>
+    <title>Wish Simulator</title>
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 
 <body>
+    <!-- ===================================
+       CONTAINER PRINCIPAL
+       =================================== -->
     <div class="app-container">
+
+        <!-- ===================================
+         VÍDEO DE FUNDO (inicialmente oculto)
+         Substitua o src do vídeo quando necessário
+         =================================== -->
         <video id="wish-video" class="background-video hidden" playsinline>
+            <!-- 
+        INSTRUÇÕES PARA ADICIONAR VÍDEOS:
+        Adicione suas fontes de vídeo aqui.
+        Exemplo:
+        <source src="videos/wish-video.mp4" type="video/mp4">
+      -->
             <source id="video-source" src="../Midia/5star.mp4" type="video/mp4">
             Seu navegador não suporta vídeos HTML5.
         </video>
@@ -30,7 +44,7 @@
          =================================== -->
         <header class="header">
             <div class="header-left">
-                <h1 class="logo">Boa Sorte GOAT</h1>
+                <h1 class="logo">Wish Simulator</h1>
             </div>
             <div class="header-right">
                 <!-- Moedas/Recursos do usuário -->
@@ -72,7 +86,7 @@
                 <!-- Banner Wish 1 -->
                 <div id="wish1-banner" class="banner-content active">
                     <div class="banner-image-container">
-                        <img src="/placeholder.svg?height=400&width=600" alt="Banner Wish 1" class="banner-image">
+                        <img src="../wishes/Banner1.png" alt="Banner Wish 1" class="banner-image">
                     </div>
                     <div class="banner-info">
                         <h2 class="banner-title">Banner Especial 1</h2>
@@ -85,7 +99,7 @@
                 <!-- Banner Wish 2 -->
                 <div id="wish2-banner" class="banner-content">
                     <div class="banner-image-container">
-                        <img src="/Midia/teste.jpeg" alt="Banner Wish 2" class="banner-image">
+                        <img src="../wishes/Banner2.jpg" alt="Banner Wish 2" class="banner-image">
                     </div>
                     <div class="banner-info">
                         <h2 class="banner-title">Banner Especial 2</h2>
