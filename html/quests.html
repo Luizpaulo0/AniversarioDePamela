@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz de Aniversário - Wishes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="shortcut icon" href="../wishes/Protagonista.jpeg"/>
+</head>
+<style>
+  /* ===================================
+   RESET E VARIÁVEIS GLOBAIS
+   =================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* ===================================
+   QUIZ - ESTILOS ESPECÍFICOS
+   =================================== */
+
+.quiz-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(circle at top, #1b2a4a, #05070f);
+}
+
+.quiz-background {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.06), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255, 215, 150, 0.05), transparent 40%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Header do Quiz */
+.quiz-page .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md) var(--spacing-xl);
+  background: transparent;
+}
+
+.header-nav {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.nav-link {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius);
+  transition: all var(--transition-fast);
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  color: var(--color-text);
+  background: var(--color-surface-light);
+}
+
+.nav-link.active {
+  color: var(--color-primary);
+  background: var(--color-surface);
+}
+
+/* Main do Quiz */
+.quiz-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md) var(--spacing-xl);
+  gap: var(--spacing-lg);
+}
+
+.quiz-header {
+  text-align: center;
+}
+
+.quiz-page-title {
+  font-size: 2rem;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-xs);
+  letter-spacing: 2px;
+}
+
+.quiz-subtitle {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.quiz-progress-info {
+  display: flex;
+  gap: var(--spacing-lg);
+  justify-content: center;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.quiz-progress-info strong {
+  color: var(--color-primary);
+}
+
+/* Card do Quiz */
+.quiz-card {
+  width: 100%;
+  max-width: 500px;
+  padding: var(--spacing-xl);
+  background: rgba(15, 20, 40, 0.65);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+}
+
+.quiz-state {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.quiz-state.hidden {
+  display: none;
+}
+
+.question-number {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.question-text {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Opções de resposta */
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.option-btn {
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.4);
+  color: var(--color-text);
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.option-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-primary);
+  transform: translateX(4px);
+}
+
+.option-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.option-btn.correct {
+  background: rgba(124, 255, 155, 0.2);
+  border-color: var(--color-success);
+  color: var(--color-success);
+}
+
+.option-btn.incorrect {
+  background: rgba(255, 124, 124, 0.2);
+  border-color: var(--color-error);
+  color: var(--color-error);
+}
+
+/* Feedback */
+.quiz-feedback {
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+  text-align: center;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.quiz-feedback.hidden {
+  display: none;
+}
+
+.quiz-feedback.correct {
+  background: rgba(124, 255, 155, 0.15);
+  color: var(--color-success);
+  border: 1px solid var(--color-success);
+}
+
+.quiz-feedback.incorrect {
+  background: rgba(255, 124, 124, 0.15);
+  color: var(--color-error);
+  border: 1px solid var(--color-error);
+}
+
+/* Botão próxima */
+.quiz-next-btn {
+  padding: var(--spacing-md) var(--spacing-xl);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  border: none;
+  border-radius: var(--border-radius);
+  color: var(--color-background);
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-top: var(--spacing-sm);
+}
+
+.quiz-next-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(201, 168, 76, 0.4);
+}
+
+.quiz-next-btn.hidden {
+  display: none;
+}
+
+/* Tela de resultado */
+.quiz-complete-icon {
+  font-size: 4rem;
+  text-align: center;
+}
+
+.quiz-complete-title {
+  font-size: 1.8rem;
+  color: var(--color-primary);
+  text-align: center;
+}
+
+.quiz-complete-text {
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.quiz-results {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-xl);
+  margin: var(--spacing-lg) 0;
+}
+
+.result-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.result-label {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.result-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-text);
+}
+
+.result-value.gems {
+  color: var(--color-primary);
+}
+
+.quiz-complete-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.quiz-btn {
+  padding: var(--spacing-md) var(--spacing-xl);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.quiz-btn.primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  border: none;
+  color: var(--color-background);
+}
+
+.quiz-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(201, 168, 76, 0.4);
+}
+
+.quiz-btn.secondary {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--color-text);
+}
+
+.quiz-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-primary);
+}
+
+/* Footer do Quiz */
+.quiz-footer {
+  text-align: center;
+  padding: var(--spacing-md);
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
+/* ===================================
+   QUIZ - RESPONSIVIDADE
+   =================================== */
+
+@media (max-width: 600px) {
+  .quiz-page .header {
+    padding: var(--spacing-sm) var(--spacing-md);
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+  }
+
+  .header-nav {
+    order: 2;
+    width: 100%;
+    justify-content: center;
+    gap: var(--spacing-xs);
+  }
+
+  .nav-link {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.85rem;
+  }
+
+  .quiz-main {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .quiz-page-title {
+    font-size: 1.5rem;
+  }
+
+  .quiz-card {
+    padding: var(--spacing-lg);
+  }
+
+  .question-text {
+    font-size: 1.1rem;
+  }
+
+  .option-btn {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 0.95rem;
+  }
+
+  .quiz-results {
+    gap: var(--spacing-lg);
+  }
+
+  .result-value {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .quiz-page-title {
+    font-size: 1.3rem;
+  }
+
+  .quiz-progress-info {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+
+  .quiz-card {
+    padding: var(--spacing-md);
+  }
+}
+
+</style>
+<body>
+
+<div class="app-container quiz-page">
+  
+  <!-- Fundo decorativo -->
+  <div class="quiz-background"></div>
+  
+  <!-- Cabeçalho -->
+  <header class="header">
+    <nav class="header-nav">
+      <a href="home.html" class="nav-link">Wishes</a>
+      <a href="../Index.html" class="nav-link">Kleezinha</a>
+      <a href="galeria.html" class="nav-link">Galeria</a>
+    </nav>
+    
+    <div class="currency-display">
+      <div class="currency-item">
+        <img src="../wishes/diamond_8068444.png" alt="Gemas" class="currency-icon" onerror="this.style.display='none'">
+        <span id="gems-count">0</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal -->
+  <main class="quiz-main">
+    
+    <!-- Título da página -->
+    <div class="quiz-header">
+      <h1 class="quiz-page-title">Quiz Especial</h1>
+      <p class="quiz-subtitle">Responda as perguntas e ganhe wishes!</p>
+      <div class="quiz-progress-info">
+        <span>Acertos: <strong id="correct-count">0</strong></span>
+        <span>Perguntas: <strong id="question-progress">0/0</strong></span>
+      </div>
+    </div>
+
+    <!-- Card da Pergunta -->
+    <div class="quiz-card">
+      
+      <!-- Estado: Quiz ativo -->
+      <div id="quiz-active" class="quiz-state">
+        <div class="question-number">Pergunta <span id="current-question">1</span></div>
+        <h2 id="question-text" class="question-text">Carregando...</h2>
+        
+        <div id="options-container" class="options-container">
+          <!-- Opções serão inseridas via JS -->
+        </div>
+        
+        <div id="feedback" class="quiz-feedback hidden"></div>
+        
+        <button id="next-btn" class="quiz-next-btn hidden">
+          Próxima Pergunta
+        </button>
+      </div>
+      
+      <!-- Estado: Quiz finalizado -->
+      <div id="quiz-complete" class="quiz-state hidden">
+        <div class="quiz-complete-icon">🎉</div>
+        <h2 class="quiz-complete-title">Parabéns!</h2>
+        <p class="quiz-complete-text">Você completou o quiz!</p>
+        
+        <div class="quiz-results">
+          <div class="result-item">
+            <span class="result-label">Acertos</span>
+            <span id="final-correct" class="result-value">0</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Total de Gemas</span>
+            <span id="final-gems" class="result-value gems">0</span>
+          </div>
+        </div>
+        
+        <div class="quiz-complete-actions">
+          <button id="restart-btn" class="quiz-btn primary">Jogar Novamente</button>
+          <a href="home.html" class="quiz-btn secondary">Usar Wishes</a>
+        </div>
+      </div>
+      
+    </div>
+    
+  </main>
+
+  <!-- Rodapé -->
+  <footer class="quiz-footer">
+    <p>Feito com carinho para você!</p>
+  </footer>
+
+</div>
+
+<script src="../quiz.js"></script>
+</body>
+</html>

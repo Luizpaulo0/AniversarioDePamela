@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>FELIZ DIA!</title>
+    <link rel="shortcut icon" href="./wishes/Protagonista.jpeg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 
     <style>
         /* ===== RESET ===== */
@@ -121,6 +123,10 @@
 </head>
 
 <body>
+    <audio autoplay loop muted id="bg-music">
+        <source src="./Midia/MisterWives.mp3" type="audio/mpeg">
+    </audio>
+
 
     <!-- FUNDO MOBILE -->
     <video autoplay muted loop playsinline class="bg-video mobile">
@@ -137,9 +143,16 @@
 
         <button class="botao principal" onclick="window.location.href='./html/home.html'">Wishes</button>
         <button class="botao" onclick="window.location.href='./html/galeria.html'">Momentos</button>
-        <button class="botao" onclick="window.location.href='./html/quest.html'">Quests</button>
     </div>
 
 </body>
+<script>
+    document.addEventListener("click", () => {
+        const audio = document.getElementById("bg-music");
+        audio.muted = false;
+        audio.play();
+    }, { once: true });
+</script>
+
 
 </html>

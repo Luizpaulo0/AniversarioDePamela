@@ -8,7 +8,6 @@
 }
 
 :root {
-  /* Cores principais - fácil de customizar */
   --color-primary: #c9a84c;
   --color-primary-dark: #a88a3d;
   --color-secondary: #4a90d9;
@@ -17,24 +16,17 @@
   --color-surface-light: rgba(50, 50, 80, 0.8);
   --color-text: #ffffff;
   --color-text-muted: #b0b0b0;
-
-  /* Cores de raridade */
   --color-5star: #ff9500;
   --color-4star: #a855f7;
   --color-3star: #3b82f6;
-
-  /* Espaçamentos */
+  --color-success: #22c55e;
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
   --spacing-lg: 1.5rem;
   --spacing-xl: 2rem;
-
-  /* Bordas */
   --border-radius: 8px;
   --border-radius-lg: 12px;
-
-  /* Transições */
   --transition-fast: 0.2s ease;
   --transition-normal: 0.3s ease;
 }
@@ -55,7 +47,7 @@ body {
   position: relative;
   width: 100%;
   height: 100vh;
-  height: 100dvh; /* Usa dynamic viewport height para mobile */
+  height: 100dvh;
   display: flex;
   flex-direction: column;
 }
@@ -74,6 +66,11 @@ body {
   background-position: center;
   z-index: -2;
   transition: opacity var(--transition-normal);
+}
+
+/* Background alternativo para página de quests */
+.background-image.quests-bg {
+  background-image: url("/placeholder.svg?height=1080&width=1920");
 }
 
 .background-video {
@@ -122,7 +119,36 @@ body {
   align-items: center;
   padding: var(--spacing-md) var(--spacing-xl);
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent);
-  flex-shrink: 0; /* Impede que o header encolha */
+  flex-shrink: 0;
+}
+
+/* Navegação principal */
+.main-nav {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.nav-link {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-surface);
+  border: 2px solid transparent;
+  border-radius: var(--border-radius);
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.nav-link:hover {
+  background: var(--color-surface-light);
+  color: var(--color-text);
+}
+
+.nav-link.active {
+  background: var(--color-surface-light);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .logo {
@@ -146,6 +172,10 @@ body {
   border-radius: var(--border-radius);
 }
 
+.currency-item.gems {
+  border: 1px solid var(--color-secondary);
+}
+
 .currency-icon {
   width: 24px;
   height: 24px;
@@ -164,7 +194,7 @@ body {
   gap: var(--spacing-md);
   padding: var(--spacing-md) var(--spacing-xl);
   overflow: hidden;
-  min-height: 0; /* Permite que o grid encolha corretamente */
+  min-height: 0;
 }
 
 /* ===================================
@@ -209,7 +239,7 @@ body {
   background: var(--color-surface);
   border-radius: var(--border-radius-lg);
   overflow: hidden;
-  min-height: 0; /* Permite encolher */
+  min-height: 0;
 }
 
 .banner-content {
@@ -236,7 +266,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: var(--spacing-md);
-  min-height: 0; /* Permite encolher */
+  min-height: 0;
 }
 
 .banner-image {
@@ -250,7 +280,7 @@ body {
 .banner-info {
   padding: var(--spacing-md) var(--spacing-lg);
   background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-  flex-shrink: 0; /* Mantém o banner info visível */
+  flex-shrink: 0;
 }
 
 .banner-title {
@@ -356,14 +386,10 @@ body {
   border-radius: var(--border-radius);
   border-left: 3px solid var(--color-3star);
   font-size: 0.85rem;
-}
-
-.item-entry.star-4 {
-  border-left-color: var(--color-4star);
-}
-
-.item-entry.star-5 {
-  border-left-color: var(--color-5star);
+  /* Adiciona flexbox para alinhar imagem com texto */
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
 }
 
 /* ===================================
@@ -377,7 +403,7 @@ body {
   align-items: center;
   padding: var(--spacing-md) var(--spacing-xl);
   background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
-  flex-shrink: 0; /* Impede que o footer encolha */
+  flex-shrink: 0;
 }
 
 .footer-left {
@@ -462,7 +488,7 @@ body {
   justify-content: center;
   z-index: 100;
   transition: opacity var(--transition-normal);
-  padding: var(--spacing-md); /* Padding para mobile */
+  padding: var(--spacing-md);
 }
 
 .modal.hidden {
@@ -477,7 +503,7 @@ body {
   max-width: 600px;
   width: 100%;
   text-align: center;
-  max-height: 90vh; /* Limita altura máxima */
+  max-height: 90vh;
   overflow-y: auto;
 }
 
@@ -495,15 +521,23 @@ body {
   min-height: 100px;
 }
 
+.item-thumb {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
 .result-item {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 120px;
   background: var(--color-surface-light);
   border-radius: var(--border-radius);
   display: flex;
   align-items: center;
   justify-content: center;
   border: 2px solid var(--color-3star);
+  padding: var(--spacing-xs);
 }
 
 .result-item.star-4 {
@@ -514,6 +548,49 @@ body {
 .result-item.star-5 {
   border-color: var(--color-5star);
   box-shadow: 0 0 20px rgba(255, 149, 0, 0.7);
+}
+
+.item-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  text-align: center;
+}
+
+.item-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.item-name {
+  font-size: 0.7rem;
+  color: var(--color-text);
+  max-width: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item-rarity {
+  font-size: 0.75rem;
+  color: var(--color-primary);
+}
+
+.result-item.star-4 .item-rarity {
+  color: var(--color-4star);
+}
+
+.result-item.star-5 .item-rarity {
+  color: var(--color-5star);
 }
 
 .result-item img {
@@ -535,6 +612,276 @@ body {
 
 .close-button:hover {
   background: var(--color-primary-dark);
+}
+
+/* ===================================
+   PÁGINA DE QUESTS
+   =================================== */
+.quests-content {
+  position: relative;
+  z-index: 5;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-xl);
+  overflow: hidden;
+  min-height: 0;
+}
+
+.quests-header {
+  text-align: center;
+  padding: var(--spacing-md);
+}
+
+.quests-title {
+  font-size: 2rem;
+  color: var(--color-primary);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.quests-subtitle {
+  color: var(--color-text-muted);
+  margin-top: var(--spacing-xs);
+}
+
+/* Abas de categorias */
+.quest-tabs {
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: center;
+}
+
+.quest-tab-button {
+  padding: var(--spacing-sm) var(--spacing-xl);
+  background: var(--color-surface);
+  border: 2px solid transparent;
+  border-radius: var(--border-radius);
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.quest-tab-button:hover {
+  background: var(--color-surface-light);
+  color: var(--color-text);
+}
+
+.quest-tab-button.active {
+  background: var(--color-surface-light);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* Container da lista de quests */
+.quests-list-container {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-md);
+}
+
+.quests-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+/* Item de quest */
+.quest-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--color-surface-light);
+  border-radius: var(--border-radius);
+  border-left: 4px solid var(--color-secondary);
+  transition: all var(--transition-fast);
+}
+
+.quest-item.completed {
+  border-left-color: var(--color-success);
+}
+
+.quest-item.claimed {
+  opacity: 0.6;
+  border-left-color: var(--color-text-muted);
+}
+
+.quest-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.quest-title {
+  font-size: 1.1rem;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-xs);
+}
+
+.quest-description {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+/* Barra de progresso */
+.quest-progress-container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+}
+
+.quest-progress-bar {
+  flex: 1;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.quest-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-secondary), var(--color-primary));
+  border-radius: 4px;
+  transition: width var(--transition-normal);
+}
+
+.quest-progress-text {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  min-width: 50px;
+  text-align: right;
+}
+
+/* Recompensa da quest */
+.quest-reward {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--spacing-sm);
+}
+
+.reward-display {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: var(--color-secondary);
+  font-weight: bold;
+}
+
+.reward-mini-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.quest-claim-btn {
+  padding: var(--spacing-xs) var(--spacing-md);
+  background: var(--color-secondary);
+  border: none;
+  border-radius: var(--border-radius);
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.quest-claim-btn:hover:not(:disabled) {
+  background: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+.quest-claim-btn:disabled {
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+.quest-claim-btn.completed {
+  background: var(--color-success);
+}
+
+.quest-claim-btn.claimed {
+  background: var(--color-surface);
+}
+
+/* Resumo de recompensas */
+.rewards-summary {
+  background: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-md) var(--spacing-lg);
+}
+
+.summary-title {
+  color: var(--color-primary);
+  font-size: 1rem;
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+}
+
+.summary-stats {
+  display: flex;
+  justify-content: space-around;
+  gap: var(--spacing-md);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+/* Modal de recompensa */
+.reward-modal-content {
+  max-width: 400px;
+}
+
+.reward-icon-container {
+  margin-bottom: var(--spacing-md);
+}
+
+.reward-icon {
+  width: 80px;
+  height: 80px;
+}
+
+.reward-text {
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-sm);
+}
+
+.reward-amount {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--color-secondary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.reward-gem-icon {
+  width: 32px;
+  height: 32px;
 }
 
 /* ===================================
@@ -592,12 +939,34 @@ body {
   }
 
   .footer-left {
-    display: none; /* Esconde botões utilitários em tablet */
+    display: none;
   }
 
   .footer-right {
     width: 100%;
     justify-content: center;
+  }
+
+  /* Quests tablet */
+  .quests-content {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .quests-title {
+    font-size: 1.5rem;
+  }
+
+  .quest-item {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .quest-reward {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
 }
 
@@ -605,7 +974,6 @@ body {
    RESPONSIVIDADE - MOBILE (max-width: 600px)
    =================================== */
 @media (max-width: 600px) {
-  /* Header compacto para mobile */
   .header {
     padding: var(--spacing-xs) var(--spacing-sm);
     flex-wrap: wrap;
@@ -615,6 +983,16 @@ body {
   .header-left {
     flex: 1;
     min-width: 0;
+  }
+
+  /* Navegação mobile */
+  .main-nav {
+    gap: var(--spacing-xs);
+  }
+
+  .nav-link {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.85rem;
   }
 
   .logo {
@@ -639,13 +1017,11 @@ body {
     height: 18px;
   }
 
-  /* Conteúdo principal em coluna única */
   .main-content {
     padding: var(--spacing-xs) var(--spacing-sm);
     gap: var(--spacing-xs);
   }
 
-  /* Abas de banner menores */
   .banner-tabs {
     gap: var(--spacing-xs);
   }
@@ -657,7 +1033,6 @@ body {
     text-align: center;
   }
 
-  /* Banner info compacto */
   .banner-info {
     padding: var(--spacing-sm);
   }
@@ -670,7 +1045,6 @@ body {
     font-size: 0.8rem;
   }
 
-  /* Painel de pity horizontal compacto */
   .items-panel {
     max-height: 80px;
     padding: var(--spacing-sm);
@@ -693,7 +1067,6 @@ body {
     font-size: 1rem;
   }
 
-  /* Footer com botões de wish centralizados */
   .footer {
     padding: var(--spacing-sm);
   }
@@ -721,7 +1094,6 @@ body {
     height: 14px;
   }
 
-  /* Modal adaptado para mobile */
   .modal {
     padding: var(--spacing-sm);
   }
@@ -751,99 +1123,10 @@ body {
     font-size: 0.9rem;
     width: 100%;
   }
-}
 
-/* ===================================
-   RESPONSIVIDADE - MOBILE PEQUENO (max-width: 400px)
-   =================================== */
-@media (max-width: 400px) {
-  .header {
-    justify-content: center;
-  }
-
-  .header-left {
-    display: none; /* Esconde logo em telas muito pequenas */
-  }
-
-  .currency-item {
-    font-size: 0.7rem;
-  }
-
-  .tab-button {
-    font-size: 0.75rem;
-    padding: var(--spacing-xs);
-  }
-
-  .wish-button {
-    max-width: 120px;
-  }
-
-  .result-item {
-    width: 50px;
-    height: 50px;
-  }
-}
-
-/* ===================================
-   LANDSCAPE MOBILE (altura limitada)
-   =================================== */
-@media (max-height: 500px) and (orientation: landscape) {
-  .header {
-    padding: var(--spacing-xs) var(--spacing-md);
-  }
-
-  .logo {
-    font-size: 1rem;
-  }
-
-  .main-content {
-    grid-template-columns: 1fr auto;
-    grid-template-rows: auto 1fr;
-    padding: var(--spacing-xs) var(--spacing-md);
-  }
-
-  .banner-tabs {
-    grid-column: 1 / 3;
-  }
-
-  .banner-display {
-    grid-column: 1;
-    grid-row: 2;
-  }
-
-  .items-panel {
-    grid-column: 2;
-    grid-row: 2;
-    max-height: none;
-    width: 150px;
-    flex-direction: column;
-  }
-
-  .pity-list {
-    flex-direction: column;
-  }
-
-  .obtained-items {
-    display: none;
-  }
-
-  .footer {
-    padding: var(--spacing-xs) var(--spacing-md);
-  }
-
-  .wish-button {
-    padding: var(--spacing-xs) var(--spacing-md);
-  }
-
-  .banner-info {
+  /* Quests mobile */
+  .quests-content {
     padding: var(--spacing-xs) var(--spacing-sm);
-  }
-
-  .banner-title {
-    font-size: 0.9rem;
-  }
-
-  .banner-description {
-    font-size: 0.75rem;
+    gap: var(--spacing-sm); /* Fixed incomplete line */
   }
 }

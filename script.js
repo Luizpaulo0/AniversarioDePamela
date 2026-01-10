@@ -18,27 +18,27 @@ const WISH_CONFIG = {
   wish1: {
     name: "Banner Especial 1",
     items: [
-      { name: "Item Comum 1", rarity: 3 },
-      { name: "Item Comum 2", rarity: 3 },
-      { name: "Item Raro 1", rarity: 4 },
-      { name: "Item Lendário 1", rarity: 5 },
+      { name: "Biscoitin", rarity: 3, image: "../wishes/biscoito.jpeg" },
+      { name: "Biscoitin", rarity: 3, image: "../wishes/biscoito.jpeg" },
+      { name: "Nescauzin", rarity: 4, image: "../wishes/Toddy.jpeg" },
+      { name: "Tortelete Lendário", rarity: 5, image: "../wishes/TierS.jpeg" },
     ],
   },
   wish2: {
     name: "Banner Especial 2",
     items: [
-      { name: "Item Comum A", rarity: 3 },
-      { name: "Item Comum B", rarity: 3 },
-      { name: "Item Raro A", rarity: 4 },
-      { name: "Item Lendário A", rarity: 5 },
+      { name: "Item Comum A", rarity: 3, image: "../wishes/biscoito.jpeg" },
+      { name: "Item Comum B", rarity: 3, image: "../wishes/biscoito.jpeg" },
+      { name: "Item Raro A", rarity: 4, image: "../wishes/Toddy.jpeg" },
+      { name: "Item Lendário A", rarity: 5, image: "../wishes/TierS.jpeg" },
     ],
   },
 }
 
 const DROP_RATES = {
-  star5: 1.0,
-  star4: 5.0,
-  star3: 94.0,
+  star5: 0.6,
+  star4: 5.1,
+  star3: 94.3,
 }
 
 const WISH_COSTS = {
@@ -202,7 +202,7 @@ function randomBetween(min, max) {
 function determineRarity() {
   const roll = Math.random() * 100
 
-  if (AppState.pity5Star >= 74) {
+  if (AppState.pity5Star >= 89) {
     return 5
   }
 
@@ -375,9 +375,12 @@ function showResults(items) {
     const itemEl = document.createElement("div")
     itemEl.className = `result-item star-${item.rarity}`
     itemEl.innerHTML = `
-      <div class="item-star-display">
-        <span class="item-name">${item.name}</span>
-        <span class="item-rarity">${"★".repeat(item.rarity)}</span>
+      <div class="item-display">
+        ${item.image ? `<img src="${item.image}" alt="${item.name}" class="item-image" />` : ""}
+        <div class="item-info">
+          <span class="item-name">${item.name}</span>
+          <span class="item-rarity">${"★".repeat(item.rarity)}</span>
+        </div>
       </div>
     `
     DOM.resultItems.appendChild(itemEl)
@@ -418,7 +421,8 @@ function updateItemsList() {
     .map(
       (item) => `
     <li class="item-entry star-${item.rarity}">
-      ${item.name} (${item.rarity}★)
+      ${item.image ? `<img src="${item.image}" alt="${item.name}" class="item-thumb" />` : ""}
+      <span>${item.name} (${item.rarity}★)</span>
     </li>
   `,
     )
